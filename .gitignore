@@ -1,0 +1,5 @@
+venv/
+personal_blog/.env
+personal_blog/db.sqlite3
+personal_blog/static/
+**/__pycache__/

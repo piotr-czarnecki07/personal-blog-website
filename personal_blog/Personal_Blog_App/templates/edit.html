@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'master.css' %}">
+    <title>Edit Article #{{ article.id }}</title>
+</head>
+<body>
+    <header><a href="/adminpage">Back to Admin Dashboard</a></header>
+    {% if submitted %}
+        <div id="message">Article #{{ article.id }} edited successfully!</div>
+    {% else %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    {% endif %}
+</body>
+</html>

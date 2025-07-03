@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'master.css' %}">
+    <link rel="stylesheet" href="{% static 'listbased.css' %}">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <header><a href="/">Back to Main Page</a><a href="post/">Post an Article</a></header>
+    <div id="title">Hello {{ request.authenticated_user }}</div>
+    <div id="intro">Your articles</div>
+    {% if articles is not None %}
+        <ol>
+            {% for article in articles %}
+            <li>
+                <a href="{{ article.id }}" id="articletitle">{{ article.title }}</a>
+                <div>
+                    <span id="actionbuttons">
+                        <a href="{{ article.id }}/edit/" id="edit">Edit</a>
+                        <a href="{{ article.id }}/delete/" id="delete">Delete</a>
+                    </span>
+                    <span id="date">
+                        {{ article.date|date:"d-m-Y" }}
+                    </span>
+                </div>
+            </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <div id="info">No articles</div>
+    {% endif %}
+</body>
+</html>

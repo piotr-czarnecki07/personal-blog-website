@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'master.css' %}">
+    <link rel="stylesheet" href="{% static 'articlebased.css' %}">
+    <title>Article #{{ article.id }}</title>
+</head>
+<body>
+    <header><a href="/">Back to Main Page</a></header>
+    <div id="title">{{ article.title }}</div>
+    <div id="date">{{ article.date|date:"d-m-Y" }}</div>
+    <div id="content">{{ article.content }}</div>
+    <div id="comments">
+        {% if submitted %}
+            <div id="message">Comment submitted successfully!</div>
+        {% else %}
+            <div id="commentpostheader">Submit a comment</div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div id="formtitle">{{ form.name }}</div>
+                <div id="commentcontent">{{ form.content }}</div>
+                <button type="submit">Submit</button>
+            </form>
+        {% endif %}
+        <div id="commentheader">Comments</div>
+        {% if comments is not None %}
+            {% for comment in comments %}
+                <div id="comment">
+                    <span id="author">{{ comment.name }}</span>
+                    <span id="commentdate">{{ comment.date|date:"d-m-Y H:i:s" }}</span><br>
+                    <span id="commenttextcontent">"{{ comment.content }}"</span>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div id="info">No comments yet</div>
+        {% endif %}
+    </div>
+</body>
+</html>

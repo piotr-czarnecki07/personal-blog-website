@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'master.css' %}">
+    <link rel="stylesheet" href="{% static 'articlebased.css' %}">
+    <title>Article #{{ article.id }}</title>
+</head>
+<body>
+    <header><a href="/adminpage">Back to Admin Dashboard</a><a href="edit/">Edit</a><a href="delete/">Delete</a></header>
+    <div id="title">{{ article.title }}</div>
+    <div id="date">{{ article.date|date:"d-m-Y" }}</div>
+    <div id="content">{{ article.content }}</div>
+    <div id="comments">
+        <div id="commentheader">Comments</div>
+        {% if comments is not None %}
+            {% for comment in comments %}
+                <div id="author">{{ comment.author }}</div>
+                <div id="commentdate">{{ comment.date|date:"d-m-Y" }}</div>
+                <a href="deletecomment/{{ comment.id }}/" id="delete">Delete comment</a>
+                <div id="commentcontent">{{ comment.content }}</div>
+            {% endfor %}
+        {% else %}
+            <div id="info">No comments yet</div>
+        {% endif %}
+    </div>
+</body>
+</html>

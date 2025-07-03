@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'master.css' %}">
+    <link rel="stylesheet" href="{% static 'listbased.css' %}">
+    <title>My personal blog</title>
+</head>
+<body>
+    <header>
+        <a href="adminpage/">Admin</a>
+    </header>
+    <div id="title">My Personal Blog</div>
+    <div id="intro">See articles</div>
+    {% if articles is not None %}
+        <ol>
+            {% for article in articles %}
+            <li>
+                <a href="article/{{ article.id }}/">{{ article.title }}</a>
+                <span id="date">{{ article.date|date:"d-m-Y" }}</span>
+            </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <div id="info">No articles</div>
+    {% endif %}
+</body>
+</html>
